@@ -9,7 +9,7 @@
     },
     "preferences": [
         {
-            "id": "api_endoint",
+            "id": "api_endpoint",
             "type": "input",
             "name": "Azure OpenAI endpoint",
             "description": "The endpoint to your completion model",
