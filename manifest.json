@@ -9,6 +9,13 @@
     },
     "preferences": [
         {
+            "id": "api_endoint",
+            "type": "input",
+            "name": "Azure OpenAI endpoint",
+            "description": "The endpoint to your completion model",
+            "default_value": ""
+        },
+        {
             "id": "gpt_kw",
             "type": "keyword",
             "name": "GPT",
