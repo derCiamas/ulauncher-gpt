@@ -27,6 +27,45 @@ def wrap_text(text, max_w):
     return '\n'.join(lines)
 
 
+class Test():
+    def InvokeRequest(self):
+        api_key = ''
+        headers = {
+            'content-type': 'application/json',
+            'api-key': api_key
+        }
+        body = {
+          "messages": [
+            {
+              "role": "user",
+              "content": "How do I read file in c#?"
+            },
+            {
+              "role": "assistant",
+              "content": "To read a file in C#, you can use the StreamReader class. Here is an example code snippet:\n\n```csharp\nusing System;\nusing System.IO;\n\nclass Program\n{\n    static void Main()\n    {\n        // Open the file\n        using (StreamReader reader = new StreamReader(\"file.txt\"))\n        {\n            // Read the contents of the file\n            string contents = reader.ReadToEnd();\n            Console.WriteLine(contents);\n        }\n    }\n}\n```\n\nIn this example, we are opening a file called \"file.txt\" and reading its contents using a StreamReader. The using statement ensures that the StreamReader is properly disposed of after use. The ReadToEnd method reads the entire contents of the file into a string, which is then printed to the console."
+            },
+            {
+              "role": "user",
+              "content": "How do I Write \"Hello World\""
+            }
+          ],
+          "temperature": 0.5,
+          "top_p": 0.95,
+          "frequency_penalty": 0,
+          "presence_penalty": 0,
+          "max_tokens": 800
+        }
+        body = json.dumps(body)
+
+        logger.info('Request body: %s', str(body))
+        logger.info('Request headers: %s', str(headers))
+
+        response = requests.post(
+            'https://piotrschat.openai.azure.com/openai/deployments/ulauncher/chat/completions?api-version=2024-04-01-preview', headers=headers, data=body, timeout=10)
+        response = response.json()
+        choices = response['choices']
+
+
 class GPTExtension(Extension):
     """
     Ulauncher extension to generate text using GPT-3
@@ -100,11 +139,10 @@ class KeywordQueryEventListener(EventListener):
                 }
             ],
             "temperature": temperature,
-            "max_tokens": max_tokens,
             "top_p": top_p,
             "frequency_penalty": frequency_penalty,
             "presence_penalty": presence_penalty,
-            #"model": model,
+            "max_tokens": max_tokens
         }
         body = json.dumps(body)
 
@@ -182,3 +220,4 @@ class KeywordQueryEventListener(EventListener):
 
 if __name__ == '__main__':
     GPTExtension().run()
+    #Test().InvokeRequest()
