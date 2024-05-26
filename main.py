@@ -85,7 +85,7 @@ class KeywordQueryEventListener(EventListener):
         # Create POST request
         headers = {
             'content-type': 'application/json',
-            'Authorization': 'Bearer ' + api_key
+            'api-key': api_key
         }
 
         body = {
